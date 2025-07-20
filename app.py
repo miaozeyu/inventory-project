@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import os
 import sys
+import re
 from datetime import datetime
 
 # Check if running in production (on Render)
@@ -10,12 +11,10 @@ on_render = os.getenv('RENDER') == 'true'
 app = Flask(__name__)
 
 # Database configuration
-if on_render:
-    # Use PostgreSQL on Render
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
-else:
-    # Use SQLite for local development
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///inventory.db'
+database_url = os.getenv('DATABASE_URL', 'sqlite:///inventory.db')
+if database_url.startswith('postgres://'):
+    database_url = database_url.replace('postgres://', 'postgresql://', 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)

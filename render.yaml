@@ -7,4 +7,12 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
+      - key: RENDER
+        value: true
+    plan: free
+
+databases:
+  - name: product_inventory_db
+    databaseName: product_inventory
+    user: product_inventory_user
     plan: free
