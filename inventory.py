@@ -1,4 +1,4 @@
-class Item:
+class Product:
     """
     A class to represent an item in the inventory.
     
@@ -23,8 +23,8 @@ class Item:
         
     def __str__(self) -> str:
         """Return a string representation of the item."""
-        return f"Item(id={self.id}, name='{self.name}', price={self.price:.2f})"
+        return f"Product(id={self.id}, name='{self.name}', price={self.price:.2f})"
     
     def __repr__(self) -> str:
         """Return the official string representation of the item."""
-        return f"Item({self.id}, '{self.name}', {self.price})"
+        return f"Product({self.id}, '{self.name}', {self.price})"
